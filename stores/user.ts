@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import type { User, ApiResponse } from '~/types/user'
+import type { User } from '~/types/user'
+import type { ApiResponse } from '~/types/api'
 
 export const useUserStore = defineStore('user', () => {
   const users = ref<User[]>([])
