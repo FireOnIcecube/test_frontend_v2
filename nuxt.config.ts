@@ -6,6 +6,13 @@ export default defineNuxtConfig({
 
   modules: ['@nuxtjs/i18n', '@pinia/nuxt', '@nuxt/image', '@unocss/nuxt', '@nuxtjs/google-fonts'],
 
+  components: [
+    {
+      path: '~/components',
+      extensions: ['vue'], // 只註冊 .vue
+    },
+  ],
+
   googleFonts: {
     display: 'swap',
     download: false,
