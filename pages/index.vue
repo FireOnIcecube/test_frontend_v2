@@ -1,5 +1,10 @@
 <template>
-  <div></div>
+  <div>
+    {{ $t('welcome') }}
+    {{ $t('test') }}
+    <button @click="$i18n.locale = 'en-US'">English</button>
+    <button @click="$i18n.locale = 'zh-TW'">中文</button>
+  </div>
 </template>
 
 <script setup lang="ts">
