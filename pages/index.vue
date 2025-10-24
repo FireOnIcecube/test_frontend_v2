@@ -18,26 +18,25 @@ const startEdit = (user: typeof editUser) => {
 </script>
 
 <template>
-  <div>
-    <!-- 新增使用者 -->
-    <input v-model="newUser.name" placeholder="姓名" />
-    <input v-model.number="newUser.age" type="number" placeholder="年齡" />
-    <button @click="userStore.addUser({ name: newUser.name, age: newUser.age })">新增</button>
+  <div class="grid place-items-center h-screen">
+    <div>
+      <input v-model="newUser.name" placeholder="姓名" />
+      <input v-model.number="newUser.age" type="number" placeholder="年齡" />
+      <button @click="userStore.addUser({ name: newUser.name, age: newUser.age })">新增</button>
 
-    <!-- 使用者列表 -->
-    <ul>
-      <li v-for="user in userStore.users" :key="user.id">
-        {{ user.name }} - {{ user.age }}
-        <button @click="startEdit(user)">編輯</button>
-        <button @click="userStore.deleteUser(user.id)">刪除</button>
-      </li>
-    </ul>
+      <ul>
+        <li v-for="user in userStore.users" :key="user.id">
+          {{ user.name }} - {{ user.age }}
+          <button @click="startEdit(user)">編輯</button>
+          <button @click="userStore.deleteUser(user.id)">刪除</button>
+        </li>
+      </ul>
 
-    <!-- 更新使用者 -->
-    <div v-if="editUser.id !== null">
-      <input v-model="editUser.name" placeholder="姓名" />
-      <input v-model.number="editUser.age" type="number" placeholder="年齡" />
-      <button @click="userStore.updateUser({ ...editUser } as any)">更新</button>
+      <div v-if="editUser.id !== null">
+        <input v-model="editUser.name" placeholder="姓名" />
+        <input v-model.number="editUser.age" type="number" placeholder="年齡" />
+        <button @click="userStore.updateUser({ ...editUser } as any)">更新</button>
+      </div>
     </div>
   </div>
 </template>
