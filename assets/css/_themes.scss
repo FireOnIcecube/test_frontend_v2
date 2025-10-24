@@ -1,0 +1,7 @@
+@import './tokens.scss';
+
+:root {
+  --color-background: #{$color-background};
+  --color-text: #{$color-text};
+  --font-family: #{$font-family};
+}
