@@ -1,6 +1,16 @@
 import { defineConfig, presetUno, presetIcons, type PresetMiniTheme } from 'unocss'
 
 export default defineConfig({
+  theme: {
+    breakpoints: {
+      xs: '320px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+      xl: '1280px',
+      '2xl': '1536px',
+    },
+  },
   rules: [
     [/^fs-(\d*\.?\d+(px|rem|em))$/, ([_, value]) => ({ 'font-size': value })],
     [/^square-(\d*\.?\d+(px|rem|em))$/, ([_, value]) => ({ height: value, width: value })],

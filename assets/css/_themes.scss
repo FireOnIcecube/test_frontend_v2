@@ -1,7 +1,9 @@
-@import './tokens.scss';
+@use './tokens' as *;
 
 :root {
   --color-background: #{$color-background};
   --color-text: #{$color-text};
+  --color-border: #{$color-border};
+
   --font-family: #{$font-family};
 }

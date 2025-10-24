@@ -1,10 +1,12 @@
-@import './themes.scss';
+@use './themes' as *;
 
 html,
 body {
   margin: 0;
   padding: 0;
   background-color: var(--color-background);
+  border-color: var(--color-border);
   color: var(--color-text);
+
   font-family: var(--font-family);
 }
