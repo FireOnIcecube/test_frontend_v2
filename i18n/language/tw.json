@@ -1,4 +1,11 @@
 {
   "welcome": "歡迎",
-  "test": "測試"
+  "test": "測試",
+  "action": "操作",
+  "edit": "修改",
+  "add": "新增",
+  "delete": "刪除",
+  "name": "名字",
+  "age": "年齡",
+  "noData": "沒有可用的資料"
 }

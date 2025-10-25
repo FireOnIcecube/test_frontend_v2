@@ -1,9 +1,19 @@
-@use './tokens' as *;
-
 :root {
-  --color-background: #{$color-background};
-  --color-text: #{$color-text};
-  --color-border: #{$color-border};
+  --color-background: #1d1d1f;
+  --color-text: #eee;
+  --color-border: #7e7e7e;
+  --font-family: 'Noto Sans TC', serif;
 
-  --font-family: #{$font-family};
+  // 互動元件主色
+  --color-success: #16a34a;
+  --color-success-hover: #2f855a;
+  --color-success-active: #276749;
+
+  --color-error: #e53e3e;
+  --color-error-hover: #c53030;
+  --color-error-active: #9b2c2c;
+
+  --color-warn: #facc15;
+  --color-warn-hover: #b7791f;
+  --color-warn-active: #975a16;
 }
