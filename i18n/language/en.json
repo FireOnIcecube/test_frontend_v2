@@ -4,5 +4,8 @@
   "action": "Action",
   "edit": "Edit",
   "add": "Add",
-  "delete": "Delete"
+  "delete": "Delete",
+  "name": "Name",
+  "age": "Age",
+  "noData": "No data available"
 }

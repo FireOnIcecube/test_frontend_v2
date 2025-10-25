@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <label></label>
-    <input />
+  <div class="e-text-field flex flex-col space-y-2">
+    <label class="font-semibold text-sm xl:text-base">{{ props.label }}</label>
+    <input type="text" class="p-1 xl:p-2 font-semibold text-base rounded-lg" />
   </div>
 </template>
 
@@ -14,4 +14,14 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {})
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.e-text-field {
+  input[type='text'] {
+    background-color: transparent;
+    color: var(--color-text);
+    border: 1px solid;
+    outline: none;
+    box-shadow: none;
+  }
+}
+</style>

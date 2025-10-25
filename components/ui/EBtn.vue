@@ -29,6 +29,10 @@ const btnClass = computed(() => `e-btn e-btn-${props.color}`)
   color: var(--color-text);
   padding: 0.25rem 1rem;
   border-radius: 0.375rem;
+  transition: 0.3s;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
 
   // success 綠
   &-success {
