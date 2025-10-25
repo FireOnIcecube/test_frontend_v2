@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     {
       path: '~/components',
       extensions: ['vue'], // 只註冊 .vue
+      pathPrefix: false, // 禁用前綴
     },
   ],
 
