@@ -18,8 +18,45 @@ const startEdit = (user: typeof editUser) => {
 </script>
 
 <template>
-  <div class="grid place-items-center h-screen">
-    <div>
+  <button @click="$i18n.locale = 'en-US'">English</button>
+  <button @click="$i18n.locale = 'zh-TW'">中文</button>
+  <div class="container mx-auto grid place-items-center h-screen">
+    <div class="w-full p-4 box-border flex flex-col md:flex-row gap-4">
+      <div class="flex-1 rounded-lg border border-[var(--color-border)] border-solid p-4">
+        <div class="flex justify-center">
+          <h3>{{ $t('action') }}</h3>
+        </div>
+        <div class="flex flex-col gap-2 justify-center">
+          <input v-model="newUser.name" placeholder="姓名" />
+          <input v-model.number="newUser.age" type="number" placeholder="年齡" />
+        </div>
+
+        <div class="flex justify-end gap-2 mt-4">
+          <EBtn>{{ $t('edit') }}</EBtn>
+          <EBtn color="warn" @click="userStore.addUser({ name: newUser.name, age: newUser.age })">{{
+            $t('add')
+          }}</EBtn>
+        </div>
+      </div>
+      <div class="flex-1 p-4 border border-[var(--color-border)] border-solid rounded-lg">
+        <ul>
+          <li v-for="user in userStore.users" :key="user.id">
+            {{ user.name }} - {{ user.age }}
+            <EBtn @click="startEdit(user)">{{ $t('edit') }}</EBtn>
+            <EBtn color="error" @click="userStore.deleteUser(user.id)">{{ $t('delete') }}</EBtn>
+          </li>
+        </ul>
+
+        <div v-if="editUser.id !== null">
+          <input v-model="editUser.name" placeholder="姓名" />
+          <input v-model.number="editUser.age" type="number" placeholder="年齡" />
+          <button @click="userStore.updateUser({ ...editUser } as any)">更新</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div>
       <input v-model="newUser.name" placeholder="姓名" />
       <input v-model.number="newUser.age" type="number" placeholder="年齡" />
       <button @click="userStore.addUser({ name: newUser.name, age: newUser.age })">新增</button>
@@ -37,6 +74,5 @@ const startEdit = (user: typeof editUser) => {
         <input v-model.number="editUser.age" type="number" placeholder="年齡" />
         <button @click="userStore.updateUser({ ...editUser } as any)">更新</button>
       </div>
-    </div>
-  </div>
+    </div> -->
 </template>
