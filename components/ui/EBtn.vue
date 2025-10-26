@@ -2,9 +2,10 @@
 interface Props {
   text?: string // 若有輸入時以此為主，若沒有就顯示 slot
   color?: 'success' | 'error' | 'warn' // 預設為 success
+  disabled?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), { color: 'success' })
+const props = withDefaults(defineProps<Props>(), { text: '', color: 'success', disabled: false })
 
 const emit = defineEmits<{
   (e: 'click'): void
@@ -18,7 +19,12 @@ const btnClass = computed(() => `e-btn e-btn-${props.color}`)
 </script>
 
 <template>
-  <button :class="btnClass" class="font-semibold text-base xl:text-lg" @click="onClick">
+  <button
+    :class="btnClass"
+    :disabled="props.disabled"
+    class="font-semibold text-base xl:text-lg"
+    @click="onClick"
+  >
     {{ props.text || '' }}
     <slot v-if="!props.text" />
   </button>
@@ -33,6 +39,13 @@ const btnClass = computed(() => `e-btn e-btn-${props.color}`)
   cursor: pointer;
   outline: none;
   box-shadow: none;
+
+  &.disabled,
+  &[disabled] {
+    filter: var(--btn-disabled-filter);
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 
   // success 綠
   &-success {
