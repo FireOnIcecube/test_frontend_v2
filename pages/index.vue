@@ -112,37 +112,41 @@ function validateInput(key: keyof UserForm, value: unknown) {
         </div>
       </ECard>
       <ECard padding="md" max-width="xl" class="flex-1">
-        <table class="w-full border-collapse whitespace-nowrap">
-          <thead class="text-center [&>tr>th]:w-[25%]">
-            <tr>
-              <th>#</th>
-              <th>{{ $t('name') }}</th>
-              <th>{{ $t('age') }}</th>
-              <th>{{ $t('action') }}</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <template v-if="userStore.users.length">
-              <tr v-for="user in userStore.users" :key="user.id" class="text-center">
-                <td class="border border-b-solid border-[var(--color-border)]">{{ user.id }}</td>
-                <td class="border border-b-solid border-[var(--color-border)]">{{ user.name }}</td>
-                <td class="border border-b-solid border-[var(--color-border)]">{{ user.age }}</td>
-                <td class="border border-b-solid border-[var(--color-border)]">
-                  <div class="flex flex-nowrap gap-x-2 justify-center">
-                    <EBtn @click="startEdit(user)">{{ $t('edit') }}</EBtn>
-                    <EBtn color="error" @click="userStore.deleteUser(user.id)">{{
-                      $t('delete')
-                    }}</EBtn>
-                  </div>
-                </td>
+        <div class="overflow-y-auto max-h-[360px]">
+          <table class="border-collapse whitespace-nowrap">
+            <thead class="text-center [&>tr>th]:w-[25%] sticky top-0 bg-[var(--color-background)]">
+              <tr>
+                <th>#</th>
+                <th>{{ $t('name') }}</th>
+                <th>{{ $t('age') }}</th>
+                <th>{{ $t('action') }}</th>
               </tr>
-            </template>
-            <tr v-else>
-              <td colspan="100%" class="text-center bg-gray-800 p-2">{{ $t('no-data') }}</td>
-            </tr>
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              <template v-if="userStore.users.length">
+                <tr v-for="user in userStore.users" :key="user.id" class="text-center">
+                  <td class="border border-b-solid border-[var(--color-border)]">{{ user.id }}</td>
+                  <td class="border border-b-solid border-[var(--color-border)]">
+                    {{ user.name }}
+                  </td>
+                  <td class="border border-b-solid border-[var(--color-border)]">{{ user.age }}</td>
+                  <td class="border border-b-solid border-[var(--color-border)]">
+                    <div class="flex flex-nowrap gap-x-2 justify-center">
+                      <EBtn @click="startEdit(user)">{{ $t('edit') }}</EBtn>
+                      <EBtn color="error" @click="userStore.deleteUser(user.id)">{{
+                        $t('delete')
+                      }}</EBtn>
+                    </div>
+                  </td>
+                </tr>
+              </template>
+              <tr v-else>
+                <td colspan="100%" class="text-center bg-gray-800 p-2">{{ $t('no-data') }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </ECard>
     </div>
   </div>
