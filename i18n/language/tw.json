@@ -7,5 +7,6 @@
   "delete": "刪除",
   "name": "名字",
   "age": "年齡",
-  "noData": "沒有可用的資料"
+  "no-data": "沒有可用的資料",
+  "name-cannot-be-empty": "名稱不能為空"
 }
