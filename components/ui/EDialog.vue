@@ -1,20 +1,18 @@
 <template>
-  <div v-if="isVisible" class="e-dialog-wrapper" @click.self="onCancel">
-    <div class="e-dialog-content" :class="{ 'fade-in': show, 'fade-out': !show }">
-      <header class="e-dialog-header">
-        <slot name="header">提示</slot>
-      </header>
+  <dialog ref="dialogRef" class="e-dialog-content" @close="onCancel">
+    <header class="e-dialog-header">
+      <slot name="header">提示</slot>
+    </header>
 
-      <main class="e-dialog-body">
-        <slot>這是一個對話框內容</slot>
-      </main>
+    <main class="e-dialog-body">
+      <slot>這是一個對話框內容</slot>
+    </main>
 
-      <footer class="e-dialog-footer">
-        <EBtn color="cancel" class="btn cancel" @click="onCancel">{{ $t('cancel') }}</EBtn>
-        <EBtn color="error" class="btn confirm" @click="onConfirm">{{ $t('confirm') }}</EBtn>
-      </footer>
-    </div>
-  </div>
+    <footer class="e-dialog-footer">
+      <EBtn color="cancel" class="btn cancel" @click="onCancel">{{ $t('cancel') }}</EBtn>
+      <EBtn color="error" class="btn confirm" @click="onConfirm">{{ $t('confirm') }}</EBtn>
+    </footer>
+  </dialog>
 </template>
 
 <script setup lang="ts">
@@ -31,21 +29,26 @@ const emit = defineEmits<{
   (e: 'cancel'): void
 }>()
 
-const show = ref(false)
-const isVisible = ref(false)
+const dialogRef = ref<HTMLDialogElement | null>(null)
 
 watch(
   () => props.modelValue,
   async (val) => {
     if (val) {
-      isVisible.value = true
+      if (dialogRef.value && !dialogRef.value.open) {
+        dialogRef.value.showModal()
+      }
       await nextTick()
-      show.value = true
+      dialogRef.value?.classList.add('fade-in')
+      dialogRef.value?.classList.remove('fade-out')
     } else {
-      show.value = false
-      setTimeout(() => {
-        isVisible.value = false
-      }, 300)
+      if (dialogRef.value) {
+        dialogRef.value.classList.add('fade-out')
+        dialogRef.value.classList.remove('fade-in')
+        setTimeout(() => {
+          dialogRef.value?.close()
+        }, 300)
+      }
     }
   },
   { immediate: true }
@@ -63,21 +66,8 @@ function onConfirm() {
 </script>
 
 <style lang="scss" scoped>
-.e-dialog-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.e-dialog-content {
-  background: #fff;
+dialog.e-dialog-content {
+  border: none;
   border-radius: 12px;
   padding: 1.5rem;
   min-width: 300px;
@@ -86,6 +76,7 @@ function onConfirm() {
   opacity: 0;
   transform: translateY(-20px);
   transition: all 0.3s ease;
+  position: relative;
 
   &.fade-in {
     opacity: 1;
