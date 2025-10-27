@@ -1,18 +1,48 @@
 <script setup lang="ts">
 interface Props {
-  text?: string // 若有輸入時以此為主，若沒有就顯示 slot
-  color?: 'success' | 'error' | 'warn' // 預設為 success
+  text?: string
   disabled?: boolean
+  color?: 'success' | 'error' | 'warn'
+  toggle?: boolean
+  pressed?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), { text: '', color: 'success', disabled: false })
+const props = withDefaults(defineProps<Props>(), {
+  text: '',
+  color: 'success',
+  disabled: false,
+  toggle: false,
+  pressed: false,
+})
 
 const emit = defineEmits<{
   (e: 'click'): void
+  (e: 'press'): void
+  (e: 'unpress'): void
+  (e: 'update:pressed', value: boolean): void
 }>()
 
+const isPressed = ref(props.pressed)
+watch(
+  () => props.pressed,
+  (v) => (isPressed.value = v)
+)
+
 function onClick() {
+  if (props.disabled) return
+
   emit('click')
+
+  if (props.toggle) {
+    isPressed.value = !isPressed.value
+    emit('update:pressed', isPressed.value)
+
+    if (isPressed.value) {
+      emit('press')
+    } else {
+      emit('unpress')
+    }
+  }
 }
 
 const btnClass = computed(() => `e-btn e-btn-${props.color}`)
@@ -22,6 +52,7 @@ const btnClass = computed(() => `e-btn e-btn-${props.color}`)
   <button
     :class="btnClass"
     :disabled="props.disabled"
+    :aria-pressed="isPressed"
     class="font-semibold text-base xl:text-lg"
     @click="onClick"
   >
@@ -54,7 +85,8 @@ const btnClass = computed(() => `e-btn e-btn-${props.color}`)
     &:hover {
       background-color: var(--color-success-hover);
     }
-    &:active {
+    &:active,
+    &[aria-pressed='true'] {
       background-color: var(--color-success-active);
     }
   }
@@ -66,7 +98,8 @@ const btnClass = computed(() => `e-btn e-btn-${props.color}`)
     &:hover {
       background-color: var(--color-error-hover);
     }
-    &:active {
+    &:active,
+    &[aria-pressed='true'] {
       background-color: var(--color-error-active);
     }
   }
@@ -79,7 +112,8 @@ const btnClass = computed(() => `e-btn e-btn-${props.color}`)
     &:hover {
       background-color: var(--color-warn-hover);
     }
-    &:active {
+    &:active,
+    &[aria-pressed='true'] {
       background-color: var(--color-warn-active);
     }
   }

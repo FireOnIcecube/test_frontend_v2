@@ -107,8 +107,10 @@ function validateInput(key: keyof UserForm, value: unknown) {
         <p class="text-red-500">{{ errorText }}</p>
 
         <div class="flex justify-end gap-2 mt-4 lg:mt-8">
-          <EBtn @click="handleSubmitUser">{{ $t('edit') }}</EBtn>
-          <EBtn color="warn" @click="handleSubmitUser">{{ $t('add') }}</EBtn>
+          <EBtn :disabled="!Boolean(inputUser.id)" @click="handleSubmitUser">{{ $t('edit') }}</EBtn>
+          <EBtn :disabled="Boolean(inputUser.id)" color="warn" @click="handleSubmitUser">{{
+            $t('add')
+          }}</EBtn>
         </div>
       </ECard>
       <ECard padding="md" max-width="xl" class="flex-1">
@@ -133,7 +135,13 @@ function validateInput(key: keyof UserForm, value: unknown) {
                   <td class="border border-b-solid border-[var(--color-border)]">{{ user.age }}</td>
                   <td class="border border-b-solid border-[var(--color-border)]">
                     <div class="flex flex-nowrap gap-x-2 justify-center">
-                      <EBtn @click="startEdit(user)">{{ $t('edit') }}</EBtn>
+                      <EBtn
+                        toggle
+                        :pressed="inputUser.id === user.id"
+                        @press="startEdit(user)"
+                        @unpress="resetForm"
+                        >{{ $t('edit') }}</EBtn
+                      >
                       <EBtn color="error" @click="userStore.deleteUser(user.id)">{{
                         $t('delete')
                       }}</EBtn>
