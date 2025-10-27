@@ -11,7 +11,7 @@
 
       <footer class="e-dialog-footer">
         <EBtn color="cancel" class="btn cancel" @click="onCancel">{{ $t('cancel') }}</EBtn>
-        <EBtn class="btn confirm" @click="onConfirm">{{ $t('confirm') }}</EBtn>
+        <EBtn color="error" class="btn confirm" @click="onConfirm">{{ $t('confirm') }}</EBtn>
       </footer>
     </div>
   </div>
