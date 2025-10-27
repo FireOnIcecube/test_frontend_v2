@@ -80,7 +80,7 @@ function validateInput(key: keyof UserForm, value: unknown) {
     case 'age':
       const num = Number(value)
       if (!Number.isInteger(num) || num <= 0) {
-        errorMsg = '年齡必須為正整數'
+        errorMsg = t('age-must-be-positive-integer')
         isValid = false
       }
       break
