@@ -11,7 +11,7 @@
 
       <footer class="e-dialog-footer">
         <EBtn color="cancel" class="btn cancel" @click="onCancel">{{ $t('cancel') }}</EBtn>
-        <EBtn color="error" class="btn confirm" @click="onConfirm">{{ $t('confirm') }}</EBtn>
+        <EBtn class="btn confirm" @click="onConfirm">{{ $t('confirm') }}</EBtn>
       </footer>
     </div>
   </div>
@@ -45,7 +45,7 @@ watch(
       show.value = false
       setTimeout(() => {
         isVisible.value = false
-      }, 300) // 動畫時間需與 CSS transition 一致
+      }, 300)
     }
   },
   { immediate: true }

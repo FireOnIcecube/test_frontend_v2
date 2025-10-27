@@ -10,5 +10,7 @@
   "no-data": "No data available",
   "name-cannot-be-empty": "Name cannot be empty",
   "confirm-delete": "Confirm Delete",
-  "are-you-sure-delete": "Are you sure to delete"
+  "are-you-sure-delete": "Are you sure to delete",
+  "cancel": "Cancel",
+  "confirm": "Confirm"
 }

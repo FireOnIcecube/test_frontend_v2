@@ -92,9 +92,6 @@ function validateInput(key: keyof UserForm, value: unknown) {
 </script>
 
 <template>
-  <button @click="$i18n.setLocale('en-US')">English</button>
-  <button @click="$i18n.setLocale('zh-TW')">中文</button>
-
   <EDialog v-model="deleteDialogOpen" class="text-gray-700" @confirm="confirmDelete">
     <template #header>{{ $t('confirm-delete') }}</template>
     <p>
@@ -103,82 +100,93 @@ function validateInput(key: keyof UserForm, value: unknown) {
     </p>
   </EDialog>
 
-  <div class="container mx-auto grid place-items-center h-screen">
-    <div class="w-full p-4 box-border flex flex-col md:flex-row gap-4 justify-center">
-      <ECard padding="md" max-width="md" class="flex-1">
-        <div class="text-center">
-          <h2>{{ $t('action') }}</h2>
-        </div>
-        <div class="space-y-4">
-          <ETextField
-            :label="$t('name')"
-            v-model="inputUser.name"
-            @update:model-value="
-              (val) => {
-                validateInput('name', val)
-              }
-            "
-          />
-          <ETextField
-            :label="$t('age')"
-            v-model="inputUser.age"
-            @update:model-value="
-              (val) => {
-                validateInput('age', val)
-              }
-            "
-          />
-        </div>
-        <p class="text-red-500">{{ errorText }}</p>
+  <div class="flex flex-col h-screen p-4">
+    <div class="flex gap-4">
+      <EBtn :pressed="$i18n.locale === 'en-US'" @click="$i18n.setLocale('en-US')">English</EBtn>
+      <EBtn :pressed="$i18n.locale === 'zh-TW'" @click="$i18n.setLocale('zh-TW')">中文</EBtn>
+    </div>
 
-        <div class="flex justify-end gap-2 mt-4 lg:mt-8">
-          <EBtn :disabled="!Boolean(inputUser.id)" @click="handleSubmitUser">{{ $t('edit') }}</EBtn>
-          <EBtn :disabled="Boolean(inputUser.id)" color="warn" @click="handleSubmitUser">{{
-            $t('add')
-          }}</EBtn>
-        </div>
-      </ECard>
-      <ECard padding="md" max-width="xl" class="flex-1">
-        <div class="overflow-y-auto max-h-[360px]">
-          <table class="border-collapse whitespace-nowrap">
-            <thead class="text-center [&>tr>th]:w-[25%] sticky top-0 bg-[var(--color-background)]">
-              <tr>
-                <th>#</th>
-                <th>{{ $t('name') }}</th>
-                <th>{{ $t('age') }}</th>
-                <th>{{ $t('action') }}</th>
-              </tr>
-            </thead>
+    <div class="container mx-auto flex flex-col items-center justify-center h-screen">
+      <div class="flex flex-col md:flex-row w-full p-4 gap-4 box-border justify-center">
+        <ECard padding="md" max-width="md" class="flex-1">
+          <div class="text-center">
+            <h2>{{ $t('action') }}</h2>
+          </div>
+          <div class="space-y-4">
+            <ETextField
+              :label="$t('name')"
+              v-model="inputUser.name"
+              @update:model-value="
+                (val) => {
+                  validateInput('name', val)
+                }
+              "
+            />
+            <ETextField
+              :label="$t('age')"
+              v-model="inputUser.age"
+              @update:model-value="
+                (val) => {
+                  validateInput('age', val)
+                }
+              "
+            />
+          </div>
+          <p class="text-red-500">{{ errorText }}</p>
 
-            <tbody>
-              <template v-if="userStore.users.length">
-                <tr v-for="user in userStore.users" :key="user.id" class="text-center">
-                  <td class="border border-b-solid border-[var(--color-border)]">{{ user.id }}</td>
-                  <td class="border border-b-solid border-[var(--color-border)]">
-                    {{ user.name }}
-                  </td>
-                  <td class="border border-b-solid border-[var(--color-border)]">{{ user.age }}</td>
-                  <td class="border border-b-solid border-[var(--color-border)]">
-                    <div class="flex flex-nowrap gap-x-2 justify-center">
-                      <EBtn
-                        toggle
-                        :pressed="inputUser.id === user.id"
-                        @press="startEdit(user)"
-                        @unpress="resetForm"
-                        >{{ $t('edit') }}</EBtn
-                      >
-                      <EBtn color="error" @click="promptDelete(user)">{{ $t('delete') }}</EBtn>
-                    </div>
-                  </td>
+          <div class="flex justify-end gap-2 mt-4 lg:mt-8">
+            <EBtn :disabled="!Boolean(inputUser.id)" @click="handleSubmitUser">{{
+              $t('edit')
+            }}</EBtn>
+            <EBtn :disabled="Boolean(inputUser.id)" color="warn" @click="handleSubmitUser">{{
+              $t('add')
+            }}</EBtn>
+          </div>
+        </ECard>
+
+        <ECard padding="md" max-width="xl" class="flex-1">
+          <div class="overflow-y-auto max-h-[360px]">
+            <table class="border-collapse whitespace-nowrap">
+              <thead
+                class="sticky top-0 bg-[var(--color-background)] text-center [&>tr>th]:w-[25%]"
+              >
+                <tr>
+                  <th>#</th>
+                  <th>{{ $t('name') }}</th>
+                  <th>{{ $t('age') }}</th>
+                  <th>{{ $t('action') }}</th>
                 </tr>
-              </template>
-              <tr v-else>
-                <td colspan="100%" class="text-center bg-gray-800 p-2">{{ $t('no-data') }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </ECard>
+              </thead>
+
+              <tbody>
+                <template v-if="userStore.users.length">
+                  <tr v-for="user in userStore.users" :key="user.id" class="text-center">
+                    <td class="border border-b border-[var(--color-border)]">{{ user.id }}</td>
+                    <td class="border border-b border-[var(--color-border)]">{{ user.name }}</td>
+                    <td class="border border-b border-[var(--color-border)]">{{ user.age }}</td>
+                    <td class="border border-b border-[var(--color-border)]">
+                      <div class="flex justify-center gap-2 flex-nowrap">
+                        <EBtn
+                          toggle
+                          :pressed="inputUser.id === user.id"
+                          @press="startEdit(user)"
+                          @unpress="resetForm"
+                        >
+                          {{ $t('edit') }}
+                        </EBtn>
+                        <EBtn color="error" @click="promptDelete(user)">{{ $t('delete') }}</EBtn>
+                      </div>
+                    </td>
+                  </tr>
+                </template>
+                <tr v-else>
+                  <td colspan="100%" class="p-2 text-center bg-gray-800">{{ $t('no-data') }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ECard>
+      </div>
     </div>
   </div>
 </template>
