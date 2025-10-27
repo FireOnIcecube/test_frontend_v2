@@ -107,7 +107,7 @@ function validateInput(key: keyof UserForm, value: unknown) {
     </div>
 
     <div class="container mx-auto flex justify-center items-center flex-col h-screen">
-      <div class="w-full p-4 box-border flex flex-col md:flex-row gap-4 justify-center">
+      <div class="w-full box-border flex flex-col md:flex-row gap-4 justify-center">
         <ECard padding="md" max-width="md" class="flex-1">
           <div class="text-center">
             <h2>{{ $t('action') }}</h2>
