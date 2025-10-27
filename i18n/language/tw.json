@@ -12,5 +12,6 @@
   "confirm-delete": "確認刪除",
   "are-you-sure-delete": "你確定要刪除",
   "cancel": "取消",
-  "confirm": "確認"
+  "confirm": "確認",
+  "age-must-be-positive-integer": "年齡必須為正整數"
 }
