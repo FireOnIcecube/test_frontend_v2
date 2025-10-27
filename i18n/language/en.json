@@ -12,5 +12,6 @@
   "confirm-delete": "Confirm Delete",
   "are-you-sure-delete": "Are you sure to delete",
   "cancel": "Cancel",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "age-must-be-positive-integer": "Age must be a positive integer"
 }
