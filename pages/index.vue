@@ -7,6 +7,22 @@ import type { UserForm, User } from '~/types/user'
 const userStore = useUserStore()
 const { t } = useI18n()
 
+const deleteDialogOpen = ref(false)
+const deletingUser = ref<User | null>(null)
+
+function promptDelete(user: User) {
+  deletingUser.value = user
+  deleteDialogOpen.value = true
+}
+
+function confirmDelete() {
+  if (deletingUser.value) {
+    userStore.deleteUser(deletingUser.value.id)
+  }
+  deletingUser.value = null
+  deleteDialogOpen.value = false
+}
+
 await userStore.fetchUsers()
 const inputUser = ref<UserForm>({
   id: null,
@@ -78,6 +94,15 @@ function validateInput(key: keyof UserForm, value: unknown) {
 <template>
   <button @click="$i18n.setLocale('en-US')">English</button>
   <button @click="$i18n.setLocale('zh-TW')">中文</button>
+
+  <EDialog v-model="deleteDialogOpen" class="text-gray-700" @confirm="confirmDelete">
+    <template #header>{{ $t('confirm-delete') }}</template>
+    <p>
+      {{ $t('are-you-sure-delete') }}
+      <strong>{{ deletingUser?.name }}</strong> (ID: {{ deletingUser?.id }})
+    </p>
+  </EDialog>
+
   <div class="container mx-auto grid place-items-center h-screen">
     <div class="w-full p-4 box-border flex flex-col md:flex-row gap-4 justify-center">
       <ECard padding="md" max-width="md" class="flex-1">
@@ -142,9 +167,7 @@ function validateInput(key: keyof UserForm, value: unknown) {
                         @unpress="resetForm"
                         >{{ $t('edit') }}</EBtn
                       >
-                      <EBtn color="error" @click="userStore.deleteUser(user.id)">{{
-                        $t('delete')
-                      }}</EBtn>
+                      <EBtn color="error" @click="promptDelete(user)">{{ $t('delete') }}</EBtn>
                     </div>
                   </td>
                 </tr>

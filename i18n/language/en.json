@@ -8,5 +8,7 @@
   "name": "Name",
   "age": "Age",
   "no-data": "No data available",
-  "name-cannot-be-empty": "Name cannot be empty"
+  "name-cannot-be-empty": "Name cannot be empty",
+  "confirm-delete": "Confirm Delete",
+  "are-you-sure-delete": "Are you sure to delete"
 }

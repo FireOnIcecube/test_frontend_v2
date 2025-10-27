@@ -2,7 +2,7 @@
 interface Props {
   text?: string
   disabled?: boolean
-  color?: 'success' | 'error' | 'warn'
+  color?: 'success' | 'error' | 'warn' | 'cancel'
   toggle?: boolean
   pressed?: boolean
 }
@@ -124,6 +124,19 @@ const btnClass = computed(() => `e-btn e-btn-${props.color}`)
     &[aria-pressed='true'] {
       background-color: var(--color-warn-active);
       border: 2px solid goldenrod;
+    }
+  }
+
+  &-cancel {
+    background-color: var(--color-cancel);
+
+    &:hover {
+      background-color: var(--color-cancel-hover);
+    }
+    &:active,
+    &[aria-pressed='true'] {
+      background-color: var(--color-cancel-active);
+      border: 2px solid black;
     }
   }
 }
