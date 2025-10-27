@@ -7,5 +7,6 @@
   "delete": "Delete",
   "name": "Name",
   "age": "Age",
-  "noData": "No data available"
+  "no-data": "No data available",
+  "name-cannot-be-empty": "Name cannot be empty"
 }
