@@ -78,6 +78,12 @@ const btnClass = computed(() => `e-btn e-btn-${props.color}`)
     pointer-events: none;
   }
 
+  &:active,
+  &[aria-pressed='true'] {
+    transform: translateY(1px) scale(0.97);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
   // success 綠
   &-success {
     background-color: var(--color-success);
@@ -88,6 +94,7 @@ const btnClass = computed(() => `e-btn e-btn-${props.color}`)
     &:active,
     &[aria-pressed='true'] {
       background-color: var(--color-success-active);
+      border: 2px solid darkgreen;
     }
   }
 
@@ -101,6 +108,7 @@ const btnClass = computed(() => `e-btn e-btn-${props.color}`)
     &:active,
     &[aria-pressed='true'] {
       background-color: var(--color-error-active);
+      border: 2px solid darkred;
     }
   }
 
@@ -115,6 +123,7 @@ const btnClass = computed(() => `e-btn e-btn-${props.color}`)
     &:active,
     &[aria-pressed='true'] {
       background-color: var(--color-warn-active);
+      border: 2px solid goldenrod;
     }
   }
 }
